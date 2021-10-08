@@ -1,6 +1,6 @@
---- CMakeLists.txt.orig	2021-07-06 10:31:17 UTC
+--- CMakeLists.txt.orig	2021-08-31 11:52:18 UTC
 +++ CMakeLists.txt
-@@ -1,14 +1,39 @@
+@@ -1,14 +1,38 @@
 -find_package(AppMenuGtkModule)
 -set_package_properties(AppMenuGtkModule PROPERTIES TYPE RUNTIME)
 -
@@ -36,7 +36,6 @@
 +    Gui
 +)
 +find_package(KF5 ${KF5_MIN_VERSION} REQUIRED COMPONENTS
-+	CoreAddons
 +	Config
 +	WindowSystem
 +)
@@ -44,7 +43,7 @@
  
  set(GMENU_DBUSMENU_PROXY_SRCS
      main.cpp
-@@ -22,28 +47,28 @@ set(GMENU_DBUSMENU_PROXY_SRCS
+@@ -22,28 +46,27 @@ set(GMENU_DBUSMENU_PROXY_SRCS
      ../libdbusmenuqt/dbusmenutypes_p.cpp
   )
  
@@ -67,8 +66,8 @@
      Qt::Core
      Qt::X11Extras
      Qt::DBus
+-    KF5::CoreAddons
 +    Qt::Widgets
-     KF5::CoreAddons
      KF5::ConfigCore
      KF5::WindowSystem
      XCB::XCB
