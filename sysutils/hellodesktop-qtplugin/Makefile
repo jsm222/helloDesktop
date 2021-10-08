@@ -14,7 +14,7 @@ LIB_DEPENDS=	libdbusmenu-qt5.so:devel/libdbusmenu-qt \
 USES=	cmake compiler:c++14-lang kde:5 pkgconfig tar:xz qt:5 \
 	gettext-runtime
 USE_GITHUB=     yes
-USE_KDE=	windowsystem
+USE_KDE=	ecm windowsystem
 USE_QT=		buildtools core dbus gui qmake svg x11extras widgets
 GH_ACCOUNT=     helloSystem
 GH_PROJECT=     QtPlugin
