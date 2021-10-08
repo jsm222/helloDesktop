@@ -1,0 +1,6 @@
+bin/menubar
+include/menubar/pluginsiterface.h
+lib/menubar/plugins/libdatetime.so
+lib/menubar/plugins/libstatusnotifier.so
+lib/menubar/plugins/libvolume.so
+share/menubar/translations/menubar_de.qm

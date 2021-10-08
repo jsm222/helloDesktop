@@ -1,0 +1,8 @@
+--- CMakeLists.txt.orig	2021-06-30 08:30:50 UTC
++++ CMakeLists.txt
+@@ -46,4 +46,4 @@ target_link_libraries(${PROJECT_NAME}
+         KF5::WindowSystem
+ )
+ 
+-install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION /usr/bin)
++install(TARGETS ${PROJECT_NAME})

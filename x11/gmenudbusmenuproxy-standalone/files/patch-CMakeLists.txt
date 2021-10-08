@@ -1,0 +1,81 @@
+--- CMakeLists.txt.orig	2021-07-06 10:31:17 UTC
++++ CMakeLists.txt
+@@ -1,14 +1,39 @@
+-find_package(AppMenuGtkModule)
+-set_package_properties(AppMenuGtkModule PROPERTIES TYPE RUNTIME)
+-
++project(gmenudbusmenuproxy-standalone)
++#find_package(AppMenuGtkModule)
++#set_package_properties(AppMenuGtkModule PROPERTIES TYPE RUNTIME)
++cmake_minimum_required(VERSION 3.16)
++set(QT_MIN_VERSION "5.15.0")
++set(KF5_MIN_VERSION "5.80.0")
++set(CMAKE_CXX_STANDARD 17)
++set(CMAKE_CXX_STANDARD_REQUIRED ON)
++set(CMAKE_AUTOMOC ON)
++include(FindPkgConfig)
++find_package(ECM ${KF5_MIN_VERSION} REQUIRED NO_MODULE)
++set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} )
++pkg_search_module(APPMENU_GTK2 REQUIRED appmenu-gtk2-parser)
++pkg_search_module(APPMENU_GTK3 REQUIRED appmenu-gtk3-parser)
++include(ECMQtDeclareLoggingCategory)
+ add_definitions(-DQT_NO_CAST_TO_ASCII
+ -DQT_NO_CAST_FROM_ASCII
+ -DQT_NO_CAST_FROM_BYTEARRAY)
+ 
+-find_package(XCB
++find_package(XCB 
+     REQUIRED COMPONENTS
+         XCB
+ )
++find_package(Qt5 ${QT_MIN_VERSION} CONFIG REQUIRED COMPONENTS
++    Core
++    DBus
++    X11Extras
++    Widgets
++    Gui
++)
++find_package(KF5 ${KF5_MIN_VERSION} REQUIRED COMPONENTS
++	CoreAddons
++	Config
++	WindowSystem
++)
++configure_file(config-X11.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-X11.h)
+ 
+ set(GMENU_DBUSMENU_PROXY_SRCS
+     main.cpp
+@@ -22,28 +47,28 @@ set(GMENU_DBUSMENU_PROXY_SRCS
+     ../libdbusmenuqt/dbusmenutypes_p.cpp
+  )
+ 
+-qt5_add_dbus_adaptor(GMENU_DBUSMENU_PROXY_SRCS ../libdbusmenuqt/com.canonical.dbusmenu.xml window.h Window)
++qt_add_dbus_adaptor(GMENU_DBUSMENU_PROXY_SRCS ../libdbusmenuqt/com.canonical.dbusmenu.xml window.h Window)
+ 
+ ecm_qt_declare_logging_category(GMENU_DBUSMENU_PROXY_SRCS HEADER debug.h
+                                                IDENTIFIER DBUSMENUPROXY
+                                                CATEGORY_NAME kde.dbusmenuproxy
+                                                DEFAULT_SEVERITY Info)
+ 
+-add_executable(gmenudbusmenuproxy ${GMENU_DBUSMENU_PROXY_SRCS})
++add_executable(gmenudbusmenuproxy-standalone ${GMENU_DBUSMENU_PROXY_SRCS})
+ 
+ set_package_properties(XCB PROPERTIES TYPE REQUIRED)
+ 
+-target_link_libraries(gmenudbusmenuproxy
++target_include_directories(gmenudbusmenuproxy-standalone PUBLIC "${PROJECT_BINARY_DIR}" PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}")
++target_link_libraries(gmenudbusmenuproxy-standalone
+     Qt::Core
+     Qt::X11Extras
+     Qt::DBus
++    Qt::Widgets
+     KF5::CoreAddons
+     KF5::ConfigCore
+     KF5::WindowSystem
+     XCB::XCB
+ )
+ 
+-install(TARGETS gmenudbusmenuproxy ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
+-install(FILES gmenudbusmenuproxy.desktop DESTINATION ${KDE_INSTALL_AUTOSTARTDIR})
++install(TARGETS gmenudbusmenuproxy-standalone DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
+ 
+-ecm_install_configured_files(INPUT plasma-gmenudbusmenuproxy.service.in @ONLY DESTINATION ${SYSTEMD_USER_UNIT_INSTALL_DIR})
