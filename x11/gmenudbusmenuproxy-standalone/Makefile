@@ -19,7 +19,7 @@ LIB_DEPENDS=	libdbusmenu-qt5.so:devel/libdbusmenu-qt \
 USES=	cmake compiler:c++14-lang gettext-runtime kde:5 qt:5 \
 	localbase:ldflags pkgconfig tar:xz xorg 
 USE_QT=	buildtools_build qmake_build core dbus gui x11extras widgets
-USE_KDE=	config coreaddons ecm windowsystem
+USE_KDE=	config ecm windowsystem
 USE_XORG=	xcb
 
 post-extract:
