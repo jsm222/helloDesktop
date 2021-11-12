@@ -1,0 +1,42 @@
+--- widget/gtk/moz.build.orig	2021-11-03 16:15:46 UTC
++++ widget/gtk/moz.build
+@@ -33,6 +33,7 @@ EXPORTS += [
+ EXPORTS.mozilla += ["WidgetUtilsGtk.h"]
+ 
+ EXPORTS.mozilla.widget += [
++    "NativeMenuSupport.h",
+     "WindowSurface.h",
+     "WindowSurfaceProvider.h",
+ ]
+@@ -45,6 +46,7 @@ UNIFIED_SOURCES += [
+     "MozContainer.cpp",
+     "MPRISServiceHandler.cpp",
+     "NativeKeyBindings.cpp",
++    "NativeMenuSupport.cpp",
+     "nsApplicationChooser.cpp",
+     "nsAppShell.cpp",
+     "nsBidiKeyboard.cpp",
+@@ -70,6 +72,15 @@ UNIFIED_SOURCES += [
+ 
+ SOURCES += [
+     "MediaKeysEventSourceFactory.cpp",
++    "nsDbusmenu.cpp",
++    "nsMenu.cpp", # conflicts with X11 headers
++    "nsMenuBar.cpp",
++    "nsMenuContainer.cpp",
++    "nsMenuItem.cpp",
++    "nsMenuObject.cpp",
++    "nsMenuSeparator.cpp",
++    "nsNativeMenuDocListener.cpp",
++    "nsNativeMenuService.cpp",
+     "nsNativeThemeGTK.cpp",  # conflicts with X11 headers
+     "nsWindow.cpp",  # conflicts with X11 headers
+     "WaylandVsyncSource.cpp",  # conflicts with X11 headers
+@@ -138,6 +149,7 @@ LOCAL_INCLUDES += [
+     "/layout/base",
+     "/layout/forms",
+     "/layout/generic",
++    "/layout/style",
+     "/layout/xul",
+     "/other-licenses/atk-1.0",
+     "/third_party/cups/include",

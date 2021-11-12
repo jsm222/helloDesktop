@@ -1,0 +1,14 @@
+--- dom/xul/moz.build.orig	2021-11-02 00:06:45 UTC
++++ dom/xul/moz.build
+@@ -83,6 +83,11 @@ LOCAL_INCLUDES += [
+ 
+ include("/ipc/chromium/chromium-config.mozbuild")
+ 
++if CONFIG["MOZ_WIDGET_TOOLKIT"] == "gtk":
++    LOCAL_INCLUDES += [
++        "/widget/gtk",
++    ]
++
+ FINAL_LIBRARY = "xul"
+ 
+ if CONFIG["CC_TYPE"] in ("clang", "gcc"):

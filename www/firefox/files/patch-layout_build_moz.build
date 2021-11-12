@@ -1,0 +1,13 @@
+--- layout/build/moz.build.orig	2021-11-03 16:15:25 UTC
++++ layout/build/moz.build
+@@ -68,6 +68,10 @@ elif CONFIG["MOZ_WIDGET_TOOLKIT"] == "android":
+         "/dom/system",
+         "/dom/system/android",
+     ]
++elif CONFIG["MOZ_WIDGET_TOOLKIT"] == "gtk":
++    LOCAL_INCLUDES += [
++        "/widget/gtk",
++    ]
+ 
+ XPCOM_MANIFESTS += [
+     "components.conf",

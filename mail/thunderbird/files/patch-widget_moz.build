@@ -1,0 +1,14 @@
+--- widget/moz.build.orig	2021-11-02 00:08:17 UTC
++++ widget/moz.build
+@@ -138,6 +138,11 @@ EXPORTS += [
+     "PuppetWidget.h",
+ ]
+ 
++if toolkit == "gtk":
++    EXPORTS += [
++        "nsINativeMenuService.h",
++    ]
++
+ EXPORTS.mozilla += [
+     "BasicEvents.h",
+     "CommandList.h",

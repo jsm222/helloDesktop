@@ -1,0 +1,16 @@
+--- toolkit/content/xul.css.orig	2021-11-02 00:08:17 UTC
++++ toolkit/content/xul.css
+@@ -230,6 +230,13 @@ toolbar[type="menubar"] {
+ }
+ %endif
+ 
++%ifdef MOZ_WIDGET_GTK
++*|*:root[shellshowingmenubar="true"]
++toolbar[type="menubar"]:not([customizing="true"]) {
++  display: none !important;
++}
++%endif
++
+ toolbarspring {
+   -moz-box-flex: 1000;
+ }
